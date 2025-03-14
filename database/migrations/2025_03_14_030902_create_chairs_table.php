@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('chairs', function (Blueprint $table) {
             $table->id();
             $table->string('name',255);
-            $table->tinyInteger('status');
+            $table->tinyInteger('status')->default(1);
             $table->unsignedBigInteger('branch_id');
             $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade');
             $table->timestamps();

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name',255);
             $table->double('price');
-            $table->tinyInteger('status'); 
+            $table->tinyInteger('status')->default(1); 
             $table->timestamps();
         });
     }

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('phone_authencation_code');
             $table->dateTime('phone_authencation_code_expired');
-            $table->tinyInteger('status');
+            $table->tinyInteger('status')->default(1);
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

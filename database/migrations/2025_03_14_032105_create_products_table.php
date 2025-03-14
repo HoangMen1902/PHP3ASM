@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('total_quantity');
             $table->text('thumbnail');
             $table->text('short_description');
-            $table->tinyInteger('status');
+            $table->tinyInteger('status')->default(1);
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();

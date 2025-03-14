@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('total_price');
             $table->text('address');
             $table->unsignedBigInteger('user_id');
-            $table->tinyInteger('status');
+            $table->tinyInteger('status')->default(1);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade'); 
             $table->timestamps();
         });
