@@ -10,6 +10,7 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\BlogController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/blog', [BlogController::class, 'index']);
@@ -18,6 +19,9 @@ Route::get('/contact', [ContactController::class, 'index']);
 Route::get('/portfolio', [PortfolioController::class, 'index']);
 Route::get('/about', [AboutController::class, 'index']);
 Route::get('/service', [ServiceController::class, 'index']);
+Route::get('/login2', [AuthController::class, 'login']);
+Route::get('/register2', [AuthController::class, 'register']);
+
 
 
 Route::view('dashboard', 'dashboard')
