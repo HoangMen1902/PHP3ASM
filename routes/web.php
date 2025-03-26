@@ -24,6 +24,8 @@ Route::get('/products', [ProductController::class, 'index']);
 Route::get('/products/{id}', [ProductController::class, 'show']);
 
 
+
+
 Route::get('/login', [Login::class, 'index'])->name('login');
 Route::get('/service', [ServiceController::class, 'index']);
 
