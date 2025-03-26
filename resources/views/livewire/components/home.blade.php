@@ -233,6 +233,85 @@
         </div>
     </div>
     <!-- Best Pricing Area End -->
+    <div class="site-section ">
+        <div class="container">
+            <div class="row justify-content-center" data-aos="fade-up">
+                <div class="col-lg-7 text-center heading-section mb-5">
+                    <h2 style="font-size: 50px;" class="mb-2 font-weight-bold">Pricing Table</h2>
+                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                </div>
+            </div>
+            <div class="row no-gutters">
+                <div class="col-12 col-sm-6 col-md-6 col-lg-4 bg-white p-3 p-md-5" data-aos="fade-up" data-aos-delay="">
+
+
+                    <div class="pricing">
+                        <h3 class="text-center text-black ">Basic</h3>
+                        <div class="price text-center mb-4 ">
+                            <span><span>$155</span> / day</span>
+                        </div>
+                        <ul class="list-unstyled ul-check success mb-5">
+                            <li class="remove">Cut</li>
+                            <li class="remove">Shave</li>
+                            <li>Styling</li>
+                            <li>Color</li>
+                            <li class="remove">Tint</li>
+                            <li>Semi-permanent wave</li>
+                            <li>Beard trim</li>
+                        </ul>
+                        <p class="text-center">
+                            <a href="#" class="btn btn-block ">Book Now</a>
+                        </p>
+                    </div>
+
+                </div>
+                <div class="col-12 col-sm-6 col-md-6 col-lg-4 pro  p-3 p-md-5" data-aos="fade-up" data-aos-delay="100" style="background-color: #f8f8f8;">
+                    <div class="pricing">
+                        <h3 class="text-center text-black ">Premium</h3>
+                        <div class="price text-center mb-4 ">
+                            <span><span>$250</span> / day</span>
+                        </div>
+                        <ul class="list-unstyled ul-check success mb-5">
+
+                            <li class="remove">Cut</li>
+                            <li class="remove">Shave</li>
+                            <li>Styling</li>
+                            <li>Color</li>
+                            <li class="remove">Tint</li>
+                            <li>Semi-permanent wave</li>
+                            <li>Beard trim</li>
+                        </ul>
+                        <p class="text-center">
+                            <a href="#" class="btn btn-block ">Book Now</a>
+
+                        </p>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-6 col-lg-4 bg-white  p-3 p-md-5" data-aos="fade-up" data-aos-delay="200">
+                    <div class="pricing">
+                        <h3 class="text-center ">Professional</h3>
+                        <div class="price text-center mb-4 ">
+                            <span><span>$850</span> / month</span>
+                        </div>
+                        <ul class="list-unstyled ul-check success mb-5">
+
+                            <li class="remove">Cut</li>
+                            <li class="remove">Shave</li>
+                            <li>Styling</li>
+                            <li>Color</li>
+                            <li class="remove">Tint</li>
+                            <li>Semi-permanent wave</li>
+                            <li>Beard trim</li>
+                        </ul>
+                        <p class="text-center">
+                            <a href="#" class="btn btn-block ">Book Now</a>
+
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!--? Gallery Area Start -->
     <div class="gallery-area section-padding30">
         <div class="container">
