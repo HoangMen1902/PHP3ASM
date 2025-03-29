@@ -11,6 +11,8 @@ use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\BlogController;
 use App\Livewire\Auth\Login;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -22,6 +24,10 @@ Route::get('/about', [AboutController::class, 'index']);
 Route::get('/service', [ServiceController::class, 'index']);
 Route::get('/products', [ProductController::class, 'index']);
 Route::get('/products/{id}', [ProductController::class, 'show']);
+Route::get('/cart', [CartController::class, 'index']);
+Route::get('/checkout', [CheckoutController::class, 'index']);
+
+
 
 
 
