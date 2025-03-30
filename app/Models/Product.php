@@ -17,5 +17,11 @@ class Product extends Model
         return $this->hasMany(ProductSku::class);
     }
 
-    
+    public function getMinPrice() {
+        return $this->productSkus()->min('price');
+    }
+
+    public function getMaxPrice() {
+        return $this->productSkus()->max('price');
+    }
 }
