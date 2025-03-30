@@ -10,7 +10,7 @@ class SkuValue extends Model
     protected $fillable = ['id', 'sku_id', 'option_id', 'value_id'];
     
     public function productSku() {
-        return $this->belongsTo(ProductSku::class);
+        return $this->belongsTo(ProductSku::class, 'sku_id');
     }
 
     public function option() {

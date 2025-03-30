@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name',255);
             $table->text('description');
-            $table->integer('total_quantity')->default(0);
+            // $table->integer('total_quantity')->default(0);
             $table->text('thumbnail');
             $table->text('short_description');
             $table->tinyInteger('status')->default(1);

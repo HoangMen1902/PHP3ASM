@@ -10,7 +10,7 @@ class ProductSku extends Model
     protected $fillable = ['sku', 'images', 'price', 'quantity', 'product_id'];
 
     public function skuValues() {
-        return $this->hasMany(SkuValue::class);
+        return $this->hasMany(SkuValue::class, 'sku_id');
     }
 
     public function cart() {

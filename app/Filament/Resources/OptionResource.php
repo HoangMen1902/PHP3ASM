@@ -3,9 +3,12 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\OptionResource\Pages;
+use App\Filament\Resources\OptionResource\Pages\ViewOption;
 use App\Filament\Resources\OptionResource\RelationManagers;
 use App\Models\Option;
+use Filament\Actions\ViewAction;
 use Filament\Forms;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
@@ -29,6 +32,12 @@ class OptionResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')->label('Tên thuộc tính')->columnSpanFull(),
+                Repeater::make('optionValues')->label('Giá trị thuộc tính')->relationship('optionValues')->schema([
+                    TextInput::make('value_name')
+                    ->label('Tên giá trị')
+                    ->rule(['required'])
+                    ->validationMessages(['required' => 'Vui lòng nhập giá trị *']),
+                ])->columnSpanFull()->deletable()->addable()->minItems(1)->rules(['min:1'])->validationMessages(['min' => 'Phải có ít nhất 1 giá trị']),
                 Toggle::make('status')
                     ->label('Trạng thái')
                     ->default(1)
@@ -36,6 +45,7 @@ class OptionResource extends Resource
                     ->dehydrateStateUsing(fn($state) => $state ? 1 : 2)
                     ->rules('required')
                     ->validationMessages(['required' => 'Vui lòng chọn trạng thái *'])
+                    ->columnSpanFull()
             ]);
     }
 
@@ -45,6 +55,7 @@ class OptionResource extends Resource
             ->columns([
                 TextColumn::make('id')->label('ID'),
                 TextColumn::make('name')->label('Tên thuộc tính'),
+                TextColumn::make('optionValues.value_name')->label('Giá trị')->limit(3),
                 TextColumn::make('status')->label('Trạng thái')->formatStateUsing(function ($state) {
                     return match ($state) {
                         1 => 'Hoạt động',
@@ -57,7 +68,9 @@ class OptionResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\ViewAction::make()->label('Xem chi tiết'),
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -79,6 +92,7 @@ class OptionResource extends Resource
             'index' => Pages\ListOptions::route('/'),
             'create' => Pages\CreateOption::route('/create'),
             'edit' => Pages\EditOption::route('/{record}/edit'),
+            'view' => ViewOption::route('{record}')
         ];
     }
 }
