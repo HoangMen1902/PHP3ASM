@@ -1,0 +1,63 @@
+.lslide img {
+    width: 100% !important;
+    height: auto;
+    object-fit: contain; 
+    max-width: 90%; 
+    max-height: 500px; 
+    margin: 0 auto; 
+    display: block;
+}
+
+/* Khi hover vào ảnh */
+.lslide img:hover {
+    cursor: pointer; 
+}
+.variants label {
+    display: inline-block;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.variants input[type="radio"] {
+    margin-right: 5px;
+}
+
+.variants {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #f9f9f9;
+}
+
+.variants h4 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.variant-options {
+    display: flex;
+    gap: 10px;
+}
+
+.variant-options label {
+    padding: 10px 15px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    background: white;
+    font-weight: 600;
+}
+
+.variant-options input[type="radio"] {
+    display: none;
+}
+
+.variant-options label:hover,
+.variant-options input[type="radio"]:checked + label {
+    border-color: #ff5a5f;
+    background: #ff5a5f;
+    color: white;
+}

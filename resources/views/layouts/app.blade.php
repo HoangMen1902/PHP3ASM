@@ -19,10 +19,15 @@
     <link rel="stylesheet" href="{{ asset('assets/css/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/nice-select.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/detail.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/products.css') }}">
-
+    <link rel="stylesheet" href="{{ asset('assets/css/lightslider.min.css') }}">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- LightSlider -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightslider/1.1.6/css/lightslider.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightslider/1.1.6/js/lightslider.min.js"></script>
     @livewireStyles
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 
 <body>
@@ -32,7 +37,7 @@
             <div class="preloader-inner position-relative">
                 <div class="preloader-circle"></div>
                 <div class="preloader-img pere-text">
-                    <img src="assets/img/logo/loder.png" alt="">
+                    <img src="{{ asset('assets/img/logo/loder.png') }}" alt="">
                 </div>
             </div>
         </div>
@@ -47,7 +52,7 @@
                         <!-- Logo -->
                         <div class="col-xl-2 col-lg-2 col-md-1">
                             <div class="logo">
-                                <a href="/"><img src="assets/img/logo/logo.png" alt=""></a>
+                                <a href="/"><img src="{{  asset('assets/img/logo/logo.png') }}" alt=""></a>
                             </div>
                         </div>
                         <div class="col-xl-10 col-lg-10 col-md-10">
@@ -61,8 +66,7 @@
                                             <li><a href="/products">Products</a></li>
                                             <li><a href="/service">Services</a></li>
                                             <li><a href="/contact">Contact</a></li>
-                                            <li><a
-                                                    href="{{ Auth::check() ? '/profile' : '/login' }}">{{ Auth::check() ? 'Profile' : 'Login' }}</a>
+                                            <li>
                                             </li>
 
                                             </li>
@@ -70,7 +74,7 @@
                                     </nav>
                                 </div>
                                 <div class="header-right-btn f-right d-none d-lg-block ml-30">
-                                    <a href="/register" class="btn header-btn">became a member</a>
+                                    <a class="btn header-btn" href="{{ Auth::check() ? '/profile' : '/login' }}">{{ Auth::check() ? 'Profile' : 'Login' }}</a>
                                 </div>
                             </div>
                         </div>
@@ -91,7 +95,7 @@
 
     <footer>
         <!--? Footer Start-->
-        <div class="footer-area section-bg" data-background="assets/img/gallery/footer_bg.png">
+        <div class="footer-area section-bg" data-background="{{ asset('assets/img/gallery/footer_bg.png') }}">
             <div class="container">
                 <div class="footer-top footer-padding">
                     <div class="row d-flex justify-content-between">
@@ -99,7 +103,7 @@
                             <div class="single-footer-caption mb-50">
                                 <!-- logo -->
                                 <div class="footer-logo">
-                                    <a href="/"><img src="assets/img/logo/logo2_footer.png" alt=""></a>
+                                    <a href="/"><img src="{{ asset('assets/img/logo/logo2_footer.png') }}" alt=""></a>
                                 </div>
                                 <div class="footer-tittle">
                                     <div class="footer-pera">
@@ -211,6 +215,8 @@
     <script src="{{ asset('assets/js/vendor/jquery-1.12.4.min.js') }}"></script>
     <script src="{{ asset('assets/js/popper.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/js/lightslider.min.js') }}"></script>
+
     <!-- Jquery Mobile Menu -->
     <script src="{{ asset('assets/js/jquery.slicknav.min.js') }}"></script>
 
@@ -244,10 +250,8 @@
     <!-- Jquery Plugins, main Jquery -->
     <script src="{{ asset('assets/js/plugins.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
-
-
     @livewireScripts
-    <script src="{{ asset('js/app.js') }}"></script>
+
 </body>
 
 </html>
