@@ -24,18 +24,15 @@
                 <div class="col-lg-7 col-xl-7">
                     <div class="product_slider_img">
                         <ul id="lightSlider">
-                            <li data-thumb="{{ asset('assets/img/product/product_1.png') }}">
-                                <img src="{{ asset('assets/img/product/product_1.png') }}" alt="Product Image" />
+                            <li data-thumb="{{ asset('storage/' . $data->thumbnail) }}">
+                                <img src="{{ asset('storage/' . $data->thumbnail) }}" alt="Product Image" />
                             </li>
-                            <li data-thumb="{{ asset('assets/img/product/product_2.png') }}">
-                                <img src="{{ asset('assets/img/product/product_2.png') }}" alt="Product Image" />
-                            </li>
-                            <li data-thumb="{{ asset('assets/img/product/product_3.png') }}">
-                                <img src="{{ asset('assets/img/product/product_3.png') }}" alt="Product Image" />
-                            </li>
-                            <li data-thumb="{{ asset('assets/img/product/product_4.png') }}">
-                                <img src="{{ asset('assets/img/product/product_4.png') }}" alt="Product Image" />
-                            </li>
+                            @foreach($data->productSkus as $sku)
+
+                                <li data-thumb="{{ asset('storage/' . $sku->images) }}">
+                                    <img src="{{ asset('storage/' . $sku->images) }}" alt="Product Image" />
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
 
@@ -43,33 +40,31 @@
                 <div class="col-lg-5 col-xl-4">
                     <div class="s_product_text">
                         <h3>Faded SkyBlu Denim Jeans</h3>
-                        <h2>$149.99</h2>
+                        <h2 id='price'>{{$price}}$</h2>
                         <ul class="list">
                             <li>
                                 <a class="active" href="#">
-                                    <span>Category</span> : Household
+                                    <span>Category</span> : {{$data->category->name}}
                                 </a>
                             </li>
                             <li>
-                                <a href="#"> <span>Availability</span> : In Stock</a>
+                                <a href="#"> <span>Availability</span> :
+                                    {{$data->productSkus->sum('quantity') ? 'In stock' : 'Out of stock'}}</a>
                             </li>
                         </ul>
-                        <p>
-                            First replenish living. Creepeth image image. Creeping can't, won't called.
-                            Two fruitful let days signs sea together all land fly subdue
-                        </p>
+                        {!!$data->short_description!!}
 
                         <div class="variants">
-                            <h4>Choose Color:</h4>
+                            <h4>Choose Variant:</h4>
                             <div class="variant-options">
-                                <input type="radio" id="color_red" name="color" value="red" onchange="changeImage('red')">
-                                <label for="color_red">Red</label>
+                                @foreach ($data->productSkus as $sku)
+                                    @foreach ($sku->skuValues as $value)
 
-                                <input type="radio" id="color_blue" name="color" value="blue" onchange="changeImage('blue')">
-                                <label for="color_blue">Blue</label>
-
-                                <input type="radio" id="color_green" name="color" value="green" onchange="changeImage('green')">
-                                <label for="color_green">Green</label>
+                                        <input type="radio" id="value_{{$sku->id}}" wire:click='updatePrice({{$sku->id}})'
+                                            name="variant" value="{{$sku->id}}">
+                                        <label for="value_{{$sku->id}}">{{ $value->optionValue->value_name }}</label>
+                                    @endforeach
+                                @endforeach
                             </div>
                         </div>
 
@@ -96,12 +91,12 @@
         <div class="container">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
-                        aria-selected="true">Description</a>
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                        aria-controls="home" aria-selected="true">Description</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
-                        aria-selected="false">Specification</a>
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                        aria-controls="profile" aria-selected="false">Specification</a>
                 </li>
 
 
@@ -109,35 +104,7 @@
             </ul>
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                    <p>
-                        Beryl Cook is one of Britain’s most talented and amusing artists
-                        .Beryl’s pictures feature women of all shapes and sizes enjoying
-                        themselves .Born between the two world wars, Beryl Cook eventually
-                        left Kendrick School in Reading at the age of 15, where she went
-                        to secretarial school and then into an insurance office. After
-                        moving to London and then Hampton, she eventually married her next
-                        door neighbour from Reading, John Cook. He was an officer in the
-                        Merchant Navy and after he left the sea in 1956, they bought a pub
-                        for a year before John took a job in Southern Rhodesia with a
-                        motor company. Beryl bought their young son a box of watercolours,
-                        and when showing him how to use it, she decided that she herself
-                        quite enjoyed painting. John subsequently bought her a child’s
-                        painting set for her birthday and it was with this that she
-                        produced her first significant work, a half-length portrait of a
-                        dark-skinned lady with a vacant expression and large drooping
-                        breasts. It was aptly named ‘Hangover’ by Beryl’s husband and
-                    </p>
-                    <p>
-                        It is often frustrating to attempt to plan meals that are designed
-                        for one. Despite this fact, we are seeing more and more recipe
-                        books and Internet websites that are dedicated to the act of
-                        cooking for one. Divorce and the death of spouses or grown
-                        children leaving for college are all reasons that someone
-                        accustomed to cooking for more than one would suddenly need to
-                        learn how to adjust all the cooking practices utilized before into
-                        a streamlined plan of cooking that is more efficient for one
-                        person creating less
-                    </p>
+                    {!! $data->description !!}
                 </div>
                 <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                     <div class="table-responsive">
@@ -218,19 +185,36 @@
     <!--================End Product Description Area =================-->
 
 </div>
-
+@script
 <script>
-    $(document).ready(function() {
-        $("#lightSlider").lightSlider({
-            gallery: true,
-            item: 1,
-            loop: true,
-            thumbItem: 4,
-            slideMargin: 0,
-            enableDrag: true,
-            currentPagerPosition: 'left',
-            auto: true,
-            pause: 3000
-        });
+    $(document).ready(function () {
+        makeSlider();
     });
+
+    function makeSlider() {
+        if ($("#lightSlider").data('lightSlider')) {
+            $("#lightSlider").lightSlider('destroy');
+        }
+
+        setTimeout(function () {
+            $("#lightSlider").lightSlider({
+                gallery: true,
+                item: 1,
+                loop: true,
+                thumbItem: 4,
+                slideMargin: 0,
+                enableDrag: true,
+                currentPagerPosition: 'left',
+                auto: true,
+                pause: 3000
+            });
+        }, 0.1);
+    }
+
+    Livewire.on('updatedPrice', () => {
+
+        makeSlider();
+    })
+
 </script>
+@endscript

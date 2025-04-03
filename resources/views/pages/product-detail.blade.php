@@ -3,6 +3,7 @@
 @section('title', 'Trang chủ')
 
 @section('content')
+@livewireScripts
+@livewire('components.product-detail', ['id' => $id])
 
-@livewire('components.product-detail')
 @endsection

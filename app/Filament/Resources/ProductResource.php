@@ -37,13 +37,13 @@ class ProductResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('name')->label('Tên sản phẩm')->unique()->rules('required')->validationMessages(['required' => 'Vui lòng điền thông tin *', 'unique' => 'Sản phẩm này đã tồn tại'])->columnSpanFull(),
+                TextInput::make('name')->label('Tên sản phẩm')->rules('required')->validationMessages(['required' => 'Vui lòng điền thông tin *', 'unique' => 'Sản phẩm này đã tồn tại'])->columnSpanFull()->unique(ignoreRecord: true),
 
                 RichEditor::make('short_description')->label('Mô tả ngắn')->rules('required')->validationMessages(['required' => 'Vui lòng điền thông tin *']),
                 RichEditor::make('description')->label('Mô tả')->rules('required')->validationMessages(['required' => 'Vui lòng điền thông tin *']),
                 FileUpload::make('thumbnail')->label('Ảnh sản phẩm')->rules('required')->image()->validationMessages(['required' => 'Vui lòng nhập ảnh', 'image' => 'File tải lên không phải hình ảnh'])->columnSpanFull(),
                 Repeater::make('productSkus')->relationship()->schema([
-                    TextInput::make('sku')->label('Mã SKU')->unique()->rules('required')->validationMessages(['required' => 'Vui lòng nhập thông tin *', 'unique' => 'Mã SKU đã tôn tại'])->columnSpanFull(),
+                    TextInput::make('sku')->label('Mã SKU')->rules('required')->validationMessages(['required' => 'Vui lòng nhập thông tin *', 'unique' => 'Mã SKU đã tôn tại'])->columnSpanFull()->unique(ignoreRecord: true),
                     TextInput::make('price')->numeric()->label('Giá')->rules('required')->validationMessages(['required' => 'Vui lòng nhập thông tin *']),
                     TextInput::make('quantity')->numeric()->label('Số lượng')->rules('required')->validationMessages(['required' => 'Vui lòng nhập thông tin *']),
                     Repeater::make('skuValues')->relationship('skuValues')->label('Thuộc tính')->schema([
