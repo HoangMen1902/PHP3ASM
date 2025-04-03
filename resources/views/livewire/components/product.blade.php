@@ -93,7 +93,7 @@
                         <div class="col-lg-12">
                             <div class="product_top_bar d-flex justify-content-between align-items-center">
                                 <div class="single_product_menu">
-                                    <p><span>10000 </span> Prodict Found</p>
+                                    <p><span>{{$data->count()}}</span> Products Found</p>
                                 </div>
                                 <div class="single_product_menu d-flex">
                                     <h5>short by : </h5>
@@ -132,9 +132,9 @@
                             @foreach($data as $product)
                                 <div class="col-lg-4 col-sm-6">
                                     <div class="single_product_item">
-                                        <img src="{{ asset('storage/' .$product->thumbnail) }}" alt="" style="object-fit:cover">
+                                        <img src="{{ asset('storage/' .$product->thumbnail) }}" alt="" style="object-fit:cover" onclick="window.location.href = '/products/{{$product->id}}'">
                                         <div class="single_product_text">
-                                            <h4>{{ $product->name }}</h4>
+                                            <h4 onclick="window.location.href = '/products/{{$product->id}}'">{{ $product->name }}</h4>
                                             <h3> {{ $product->min_price == $product->max_price ? $product->min_price . '$' : $product->min_price . '$ - ' . $product->max_price . '$' }}</h3>
                                             <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
                                         </div>
