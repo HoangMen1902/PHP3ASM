@@ -28,6 +28,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightslider/1.1.6/css/lightslider.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightslider/1.1.6/js/lightslider.min.js"></script>
     @livewireStyles
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </head>
 
 <body>
@@ -74,7 +76,8 @@
                                     </nav>
                                 </div>
                                 <div class="header-right-btn f-right d-none d-lg-block ml-30">
-                                    <a class="btn header-btn" href="{{ Auth::check() ? '/profile' : '/login' }}">{{ Auth::check() ? 'Profile' : 'Login' }}</a>
+                                    <a class="btn header-btn"
+                                        href="{{ Auth::check() ? '/profile' : '/login' }}">{{ Auth::check() ? 'Profile' : 'Login' }}</a>
                                 </div>
                             </div>
                         </div>
@@ -205,6 +208,7 @@
         <!-- Footer End-->
     </footer>
 
+
     <!-- Scroll Up -->
     <div id="back-top">
         <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
@@ -250,6 +254,26 @@
     <!-- Jquery Plugins, main Jquery -->
     <script src="{{ asset('assets/js/plugins.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script>
+        toastr.options = {
+            "positionClass": "toast-bottom-right", 
+            "timeOut": "5000", 
+            "closeButton": true, 
+            "progressBar": true
+        };
+
+    </script>
+    @if (session('error'))
+        <script>
+            toastr.warning("{{ session('error') }}");
+        </script>
+    @endif
+
+    @if (session('success'))
+        <script>
+            toastr.success("{{ session('success') }}");
+        </script>
+    @endif
     @livewireScripts
 
 </body>

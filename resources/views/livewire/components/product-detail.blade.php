@@ -53,18 +53,25 @@
                             </li>
                         </ul>
                         {!!$data->short_description!!}
-
+                        @php
+                            $isFirstChecked = true;
+                        @endphp
                         <div class="variants">
                             <h4>Choose Variant:</h4>
                             <div class="variant-options">
+                                <form action="/add-to-cart" method="post" id="cartForm">
+                                    @csrf
                                 @foreach ($data->productSkus as $sku)
                                     @foreach ($sku->skuValues as $value)
-
                                         <input type="radio" id="value_{{$sku->id}}" wire:click='updatePrice({{$sku->id}})'
-                                            name="variant" value="{{$sku->id}}">
+                                            name="variant" value="{{$sku->id}}" {{ $isFirstChecked ? 'checked' : '' }}>
                                         <label for="value_{{$sku->id}}">{{ $value->optionValue->value_name }}</label>
+                                        @php
+                                            $isFirstChecked = false;
+                                        @endphp
                                     @endforeach
                                 @endforeach
+                            </form>
                             </div>
                         </div>
 
@@ -72,10 +79,10 @@
                         <div class="card_area d-flex justify-content-between align-items-center">
                             <div class="product_count">
                                 <span class="inumber-decrement"> <i class="ti-minus"></i></span>
-                                <input class="input-number" type="text" value="1" min="0" max="10">
-                                <span class="number-increment"> <i class="ti-plus"></i></span>
+                                <input class="input-number" type="text" value="1" min="0" name="quantity" id="quantity" form="cartForm">
+                                <span class="number-increment" onclick="increase()"> <i class="ti-plus"></i></span>
                             </div>
-                            <a href="#" class="btn_3">add to cart</a>
+                            <button form="cartForm" class="btn_3">add to cart</button>
                             <a href="#" class="like_us"> <i class="ti-heart"></i> </a>
                         </div>
                     </div>
@@ -185,11 +192,27 @@
     <!--================End Product Description Area =================-->
 
 </div>
+<script>
+
+
+</script>
 @script
 <script>
     $(document).ready(function () {
         makeSlider();
+        $(".number-increment").click(function () {
+            let value = parseInt($("#quantity").val()) || 0;
+            $("#quantity").val(value + 1);
+        });
+        $(".inumber-decrement").click(function () {
+            let value = parseInt($("#quantity").val()) || 0;
+            if (value > 1) {
+                $("#quantity").val(value - 1);
+            }
+        });
     });
+
+
 
     function makeSlider() {
         if ($("#lightSlider").data('lightSlider')) {
