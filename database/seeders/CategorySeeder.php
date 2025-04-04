@@ -13,6 +13,7 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
+        
         $categories = [
             'Sáp vuốt tóc',
             'Pomade',
