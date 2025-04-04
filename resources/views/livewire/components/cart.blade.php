@@ -44,7 +44,7 @@
                                                 <img src="{{asset('storage/' . $cart->productSku->images)}}" alt=""  style="max-width: 100px; object-fit: cover;"/>
                                             </div>
                                             <div class="media-body">
-                                                <p>Minimalistic shop for multipurpose use</p>
+                                                <p>{{$cart->productSku->product->name}}</p>
                                             </div>
                                         </div>
                                     </td>
