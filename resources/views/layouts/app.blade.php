@@ -79,6 +79,15 @@
                                     <a class="btn header-btn"
                                         href="{{ Auth::check() ? '/profile' : '/login' }}">{{ Auth::check() ? 'Profile' : 'Login' }}</a>
                                 </div>
+                                @if(Auth::check()):
+                                    <a class="btn header-btn" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        style="display: none;">
+                                        @csrf
+                                    </form>
+                                @endif
                             </div>
                         </div>
                         <!-- Mobile Menu -->
@@ -256,9 +265,9 @@
     <script src="{{ asset('assets/js/main.js') }}"></script>
     <script>
         toastr.options = {
-            "positionClass": "toast-bottom-right", 
-            "timeOut": "5000", 
-            "closeButton": true, 
+            "positionClass": "toast-bottom-right",
+            "timeOut": "5000",
+            "closeButton": true,
             "progressBar": true
         };
 
