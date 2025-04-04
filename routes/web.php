@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Middleware\Authenticate;
+use App\Http\Middleware\CartMiddleware;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
@@ -28,6 +30,7 @@ Route::get('/cart', [CartController::class, 'index']);
 Route::get('/checkout', [CheckoutController::class, 'index']);
 
 
+Route::post('/add-to-cart', [CartController::class, 'cartInsert'])->middleware([Authenticate::class, CartMiddleware::class]);
 
 
 
