@@ -13,4 +13,8 @@ class Branch extends Model
         'branch_address',
         'status'
     ];
+
+    public function chairs() {
+        return $this->hasMany(Chair::class);
+    }
 }
