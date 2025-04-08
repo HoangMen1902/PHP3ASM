@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\Auth\PasswordResetLinkController;
+use App\Http\Controllers\Auth\NewPasswordController;
+
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
@@ -16,7 +19,15 @@ Route::middleware('guest')->group(function () {
 
     Volt::route('reset-password/{token}', 'pages.auth.reset-password')
         ->name('password.reset');
+
 });
+Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])
+    ->middleware('guest')
+    ->name('password.email');
+
+Route::post('reset-password', [NewPasswordController::class, 'store'])
+    ->middleware('guest')
+    ->name('password.update');
 
 Route::middleware('auth')->group(function () {
     Volt::route('verify-email', 'pages.auth.verify-email')
