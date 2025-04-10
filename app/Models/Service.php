@@ -8,4 +8,10 @@ class Service extends Model
 {
     protected $table = 'services';
     protected $fillable = ['name', 'price', 'status'];
+
+    public function appointments()
+{
+    return $this->belongsToMany(Appointment::class, 'appointment_services');
+}
+
 }

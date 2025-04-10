@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('service_histories', function (Blueprint $table) {
             $table->id();
             $table->double('total_price');
+            $table->tinyInteger('status')->default(1);
             $table->unsignedBigInteger('appointment_id');
             $table->foreign('appointment_id')->references('id')->on('appointments')->onDelete('cascade');
             $table->timestamps();

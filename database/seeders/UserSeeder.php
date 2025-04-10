@@ -32,7 +32,8 @@ class UserSeeder extends Seeder
             ['name' => 'Lê Quang R', 'email' => 'lequangr@example.com', 'phone' => '0917000017', 'role' => 1],
             ['name' => 'Vũ Quốc S', 'email' => 'vuquocs@example.com', 'phone' => '0917000018', 'role' => 1],
             ['name' => 'Trần Mai T', 'email' => 'tranmait@example.com', 'phone' => '0917000019', 'role' => 1],
-            ['name' => 'Hoàng Thanh U', 'email' => 'hoangthanu@example.com', 'phone' => '0917000020', 'role' => 1]
+            ['name' => 'Hoàng Thanh U', 'email' => 'hoangthanu@example.com', 'phone' => '0917000020', 'role' => 1],
+            ['name' => 'admin', 'email' => 'admin@gmail.com', 'phone' => '0845456683', 'role' => 2]
         ];
 
         foreach ($users as $user) {
