@@ -17,6 +17,9 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\UserResource\RelationManagers\ServiceHistoriesRelationManager;
+
+use Guava\FilamentModalRelationManagers\Actions\Table\RelationManagerAction;
 
 use function Laravel\Prompts\select;
 
@@ -110,6 +113,10 @@ class UserResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
+                RelationManagerAction::make('Lịch sử dịch vụ')
+                    ->label('Lịch sử dịch vụ')
+                    ->relationManager(ServiceHistoriesRelationManager::make()),
+
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -118,10 +125,11 @@ class UserResource extends Resource
             ]);
     }
 
+
     public static function getRelations(): array
     {
         return [
-            //
+            ServiceHistoriesRelationManager::class,
         ];
     }
 

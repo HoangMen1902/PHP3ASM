@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
+use App\Models\ServiceHistory;
 
 class User extends Authenticatable implements FilamentUser
 {
@@ -22,7 +23,7 @@ class User extends Authenticatable implements FilamentUser
      * @var list<string>
      */
 
-  
+
     protected $fillable = [
         'name',
         'email',
@@ -48,10 +49,10 @@ class User extends Authenticatable implements FilamentUser
      * @return array<string, string>
      */
 
-     public function canAccessPanel(Panel $panel): bool
-     {
+    public function canAccessPanel(Panel $panel): bool
+    {
         return $this->role === 2;
-     }
+    }
     protected function casts(): array
     {
         return [
@@ -67,7 +68,23 @@ class User extends Authenticatable implements FilamentUser
     {
         return Str::of($this->name)
             ->explode(' ')
-            ->map(fn (string $name) => Str::of($name)->substr(0, 1))
+            ->map(fn(string $name) => Str::of($name)->substr(0, 1))
             ->implode('');
     }
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class);
+    }
+
+    public function serviceHistories()
+{
+    return $this->hasManyThrough(
+        ServiceHistory::class,
+        Appointment::class,
+        'user_id',          // Foreign key on Appointment table
+        'appointment_id',   // Foreign key on ServiceHistory table
+        'id',               // Local key on User table
+        'id'                // Local key on Appointment table
+    );
+}
 }

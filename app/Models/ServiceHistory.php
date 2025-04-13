@@ -11,4 +11,13 @@ class ServiceHistory extends Model
         'appointment_id',
         'status'
     ];
+
+    public function service()
+    {
+        return $this->belongsTo(Service::class);
+    }
+    public function appointment()
+    {
+        return $this->belongsTo(Appointment::class);
+    }
 }

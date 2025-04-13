@@ -18,6 +18,7 @@ class Appointment extends Model
         'user_id',
         'status'
     ];
+    
     public function branch()
     {
         return $this->belongsTo(Branch::class);
@@ -37,5 +38,8 @@ class Appointment extends Model
     {
         return $this->belongsToMany(Service::class, 'appointment_services')->withTimestamps();
     }
-    
+    public function serviceHistories()
+    {
+        return $this->hasMany(ServiceHistory::class);
+    }
 }
