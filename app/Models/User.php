@@ -76,15 +76,18 @@ class User extends Authenticatable implements FilamentUser
         return $this->hasMany(Appointment::class);
     }
 
+    public function checkoutAddresses() {
+        return $this->hasMany(CheckoutAddress::class);
+    }
     public function serviceHistories()
-{
-    return $this->hasManyThrough(
-        ServiceHistory::class,
-        Appointment::class,
-        'user_id',          // Foreign key on Appointment table
-        'appointment_id',   // Foreign key on ServiceHistory table
-        'id',               // Local key on User table
-        'id'                // Local key on Appointment table
-    );
-}
+    {
+        return $this->hasManyThrough(
+            ServiceHistory::class,
+            Appointment::class,
+            'user_id',          // Foreign key on Appointment table
+            'appointment_id',   // Foreign key on ServiceHistory table
+            'id',               // Local key on User table
+            'id'                // Local key on Appointment table
+        );
+    }
 }

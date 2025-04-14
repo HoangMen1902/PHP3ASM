@@ -1,3 +1,11 @@
+@push('styles')
+    <style>
+input:read-only:not(:placeholder-shown) + .placeholder {
+    display: none;
+}
+
+    </style>
+@endpush
 <div>
 
     <!--================Home Banner Area =================-->
@@ -18,87 +26,59 @@
     </section>
     <!-- breadcrumb start-->
 
+
     <!--================Checkout Area =================-->
     <section class="checkout_area padding_top">
         <div class="container">
-            <div class="cupon_area">
-                <div class="check_title">
-                    <h2>
-                        Have a coupon?
-                        <a href="#">Click here to enter your code</a>
-                    </h2>
-                </div>
-                <input type="text" placeholder="Enter coupon code" />
-                <a class="tp_btn" href="#">Apply Coupon</a>
+            <div class="cupon_area" style="display: flex; flex-direction: column;">
+                <label for="checkout_address">Thông tin thanh toán</label>
+                @if ($user->checkoutAddresses->count() < 1)
+
+                    <a href="" style="color: #0000EE">Bạn chưa có địa chỉ giao hàng, vui lòng tạo tại đây!</a>
+                @else
+                    <select name="checkout_address" id="checkout_address">
+                        <option value="none">Chọn thông tin giao hàng</option>
+                        @foreach ($user->checkoutAddresses as $user_address)
+                            <option value="{{$user_address->id}}">{{ $user_address->address }}</option>
+                        @endforeach
+                    </select>
+                    <a href="" style="color: #0000EE">Địa chỉ bị sai? sửa tại đây.</a>
+                @endif
             </div>
             <div class="billing_details">
                 <div class="row">
                     <div class="col-lg-8">
                         <h3>Billing Details</h3>
-                        <form class="row contact_form" action="#" method="post" novalidate="novalidate">
-                            <div class="col-md-6 form-group p_star">
-                                <input type="text" class="form-control" id="first" name="name" />
-                                <span class="placeholder" data-placeholder="First name"></span>
-                            </div>
-                            <div class="col-md-6 form-group p_star">
-                                <input type="text" class="form-control" id="last" name="name" />
-                                <span class="placeholder" data-placeholder="Last name"></span>
-                            </div>
-                            <div class="col-md-12 form-group">
-                                <input type="text" class="form-control" id="company" name="company" placeholder="Company name" />
+                        <form class="row contact_form" action="/checkout" method="post" novalidate="novalidate"
+                            name="checkout" id="checkout">
+                            @csrf
+
+                            <div class="col-md-12 form-group p_star">
+                                <input type="text" class="form-control" id="username" name="username" readonly
+                                    wire:model="address_username" placeholder="Address Username"/>
                             </div>
                             <div class="col-md-6 form-group p_star">
-                                <input type="text" class="form-control" id="number" name="number" />
-                                <span class="placeholder" data-placeholder="Phone number"></span>
+                                <input type="text" class="form-control" id="phone" name="phone" readonly
+                                    wire:model="phone" placeholder="Phone Number"/>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <input type="text" class="form-control" id="province_name" name="province_name"
+                                    placeholder="Province Name" readonly wire:model="province_name"/>
                             </div>
                             <div class="col-md-6 form-group p_star">
-                                <input type="text" class="form-control" id="email" name="compemailany" />
-                                <span class="placeholder" data-placeholder="Email Address"></span>
+                                <input type="text" class="form-control" id="district_name" name="district_name" readonly
+                                    wire:model="district_name" placeholder="District Name"/>
+                            </div>
+                            <div class="col-md-6 form-group p_star">
+                                <input type="text" class="form-control" id="ward_name" name="ward_name" readonly
+                                    wire:model="ward_name" placeholder="Ward Name"/>
                             </div>
                             <div class="col-md-12 form-group p_star">
-                                <select class="country_select">
-                                    <option value="1">Country</option>
-                                    <option value="2">Country</option>
-                                    <option value="4">Country</option>
-                                </select>
+                                <input type="text" class="form-control" id="Address" name="Address" readonly
+                                    wire:model="address" placeholder="Address"/>
                             </div>
-                            <div class="col-md-12 form-group p_star">
-                                <input type="text" class="form-control" id="add1" name="add1" />
-                                <span class="placeholder" data-placeholder="Address line 01"></span>
-                            </div>
-                            <div class="col-md-12 form-group p_star">
-                                <input type="text" class="form-control" id="add2" name="add2" />
-                                <span class="placeholder" data-placeholder="Address line 02"></span>
-                            </div>
-                            <div class="col-md-12 form-group p_star">
-                                <input type="text" class="form-control" id="city" name="city" />
-                                <span class="placeholder" data-placeholder="Town/City"></span>
-                            </div>
-                            <div class="col-md-12 form-group p_star">
-                                <select class="country_select">
-                                    <option value="1">District</option>
-                                    <option value="2">District</option>
-                                    <option value="4">District</option>
-                                </select>
-                            </div>
-                            <div class="col-md-12 form-group">
-                                <input type="text" class="form-control" id="zip" name="zip" placeholder="Postcode/ZIP" />
-                            </div>
-                            <div class="col-md-12 form-group">
-                                <div class="creat_account">
-                                    <input type="checkbox" id="f-option2" name="selector" />
-                                    <label for="f-option2">Create an account?</label>
-                                </div>
-                            </div>
-                            <div class="col-md-12 form-group">
-                                <div class="creat_account">
-                                    <h3>Shipping Details</h3>
-                                    <input type="checkbox" id="f-option3" name="selector" />
-                                    <label for="f-option3">Ship to a different address?</label>
-                                </div>
-                                <textarea class="form-control" name="message" id="message" rows="1"
-                                    placeholder="Order Notes"></textarea>
-                            </div>
+
+
                         </form>
                     </div>
                     <div class="col-lg-4">
@@ -110,71 +90,62 @@
                                         <span>Total</span>
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="#">Fresh Blackberry
-                                        <span class="middle">x 02</span>
-                                        <span class="last">$720.00</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">Fresh Tomatoes
-                                        <span class="middle">x 02</span>
-                                        <span class="last">$720.00</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">Fresh Brocoli
-                                        <span class="middle">x 02</span>
-                                        <span class="last">$720.00</span>
-                                    </a>
-                                </li>
-                            </ul>
-                            <ul class="list list_2">
-                                <li>
-                                    <a href="#">Subtotal
-                                        <span>$2160.00</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">Shipping
-                                        <span>Flat rate: $50.00</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">Total
-                                        <span>$2210.00</span>
-                                    </a>
-                                </li>
-                            </ul>
-                            <div class="payment_item">
-                                <div class="radion_btn">
-                                    <input type="radio" id="f-option5" name="selector" />
-                                    <label for="f-option5">Check payments</label>
-                                    <div class="check"></div>
+                                @php
+                                    $price = 0;
+                                @endphp
+                                @foreach ($data as $cart)
+                                                                @php
+                                                                    $price += $cart->quantity * $cart->productSku->price
+                                                                @endphp
+                                                                <li>
+                                                                    <a href="#"
+                                                                        style="display: flex; gap: 8px; align-items: center; justify-content: space-between;">
+                                                                        <span
+                                                                            style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 150px; display: inline-block;">
+                                                                            {{ $cart->productSku->product->name }}
+                                                                        </span>
+                                                                        <span class="middle">x{{ $cart->quantity }}</span>
+                                                                        <span class="last">${{ $cart->productSku->price }}</span>
+                                                                    </a>
+                                                                </li>
+                                @endforeach
+                                <ul class="list list_2">
+                                    <li>
+                                        <a href="#">Subtotal
+                                            <span>${{$price}}</span>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#">Total
+                                            <span>${{$price}}</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="payment_item">
+                                    <div class="radion_btn">
+                                        <input type="radio" id="f-option5" name="payment-method" form="checkout" />
+                                        <label for="f-option5">Cash</label>
+                                        <div class="check"></div>
+                                    </div>
+                                    <p>
+                                        Cash on delivery
+                                    </p>
                                 </div>
-                                <p>
-                                    Please send a check to Store Name, Store Street, Store Town,
-                                    Store State / County, Store Postcode.
-                                </p>
-                            </div>
-                            <div class="payment_item active">
-                                <div class="radion_btn">
-                                    <input type="radio" id="f-option6" name="selector" />
-                                    <label for="f-option6">Paypal </label>
-                                    <img src="img/product/single-product/card.jpg" alt="" />
-                                    <div class="check"></div>
+                                <div class="payment_item active">
+                                    <div class="radion_btn">
+                                        <input type="radio" id="f-option6" name="payment-method" form="checkout" />
+                                        <label for="f-option6">International Payment</label>
+                                        <img src="img/product/single-product/card.jpg" alt="" />
+                                        <div class="check"></div>
+                                    </div>
+                                    <p>
+                                        Visa - Mastercard Supported
+                                    </p>
                                 </div>
-                                <p>
-                                    Please send a check to Store Name, Store Street, Store Town,
-                                    Store State / County, Store Postcode.
-                                </p>
-                            </div>
-                            <div class="creat_account">
-                                <input type="checkbox" id="f-option4" name="selector" />
-                                <label for="f-option4">I’ve read and accept the </label>
-                                <a href="#">terms & conditions*</a>
-                            </div>
-                            <a class="btn_3" href="#">Proceed to Paypal</a>
+
+                                <button class="btn_3" href="#" style="margin-top:1rem; width: 100%;"
+                                    form="checkout">Proceed to payment</button>
                         </div>
                     </div>
                 </div>
@@ -184,3 +155,15 @@
     <!--================End Checkout Area =================-->
 
 </div>
+@script
+<script>
+    $(() => {
+
+        $('#checkout_address').on('change', function () {
+            let selectedValue = $(this).val();
+            $wire.dispatch('changedAddress', { id: selectedValue });
+
+        });
+    });
+</script>
+@endscript
