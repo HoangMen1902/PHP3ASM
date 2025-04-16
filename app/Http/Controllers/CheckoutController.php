@@ -6,6 +6,7 @@ use App\Http\Requests\CheckoutRequest;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\PaymentHistory;
 use App\Services\StripeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -68,12 +69,19 @@ class CheckoutController extends Controller
             ]);
         }
         $cartData->each->delete();
+        return $order;
     }
 
-    public function internationalCompleted()
+    public function internationalCompleted($checkout_id)
     {
+
+        $stripe = $checkout_id;
         $session = session('checkout_data');
-        $this->processOrder($session);
+        $order = $this->processOrder($session);
+        PaymentHistory::create([
+            'payment_id' => $stripe,
+            'order_id' => $order->id
+        ]);
         session()->forget('checkout_data');
         return redirect('/thanks-page');
     }
