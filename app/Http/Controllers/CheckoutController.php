@@ -7,6 +7,7 @@ use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\PaymentHistory;
+use App\Models\ProductSku;
 use App\Services\StripeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,6 +31,8 @@ class CheckoutController extends Controller
                 'province_name' => $request->input('province_name'),
                 'district_name' => $request->input('district_name'),
                 'ward_name' => $request->input('ward_name'),
+                'username' => $request->input('username'),
+                'phone' => $request->input('phone')
             ];
             session(['checkout_data' => $checkoutData]);
             return redirect()->away($paymentSession->url);
@@ -44,11 +47,14 @@ class CheckoutController extends Controller
     public function processOrder($request)
     {
         $cartData = Cart::where('user_id', '=', Auth::id())->with('productSku')->get();
-        $totalPrice = $cartData->sum(function ($cart) {
-            return $cart->productSku->price * $cart->quantity;
-        });
+        $totalPrice = 0;
 
+        foreach($cartData as $data) {
+            $totalPrice += $data->quantity * $data->productSku->price;
+        }
 
+        $username = $request['username'] ?? $request->input('username');
+        $phone = $request['phone'] ?? $request->input('phone');
         $address = $request['address'] ?? $request->input('Address');
         $provinceName = $request['province_name'] ?? $request->input('province_name');
         $districtName = $request['district_name'] ?? $request->input('district_name');
@@ -58,7 +64,10 @@ class CheckoutController extends Controller
             'user_id' => Auth::id(),
             'address' => $address . ', ' . $wardName . ', ' . $districtName . ', ' . $provinceName,
             'total_price' => $totalPrice,
+            'address_username' => $username,
+            'address_phone' => $phone,
             'status' => 1,
+
         ]);
         foreach ($cartData as $cart) {
             OrderDetail::create([
@@ -67,19 +76,22 @@ class CheckoutController extends Controller
                 'price' => $cart->productSku->price,
                 'quantity' => $cart->quantity
             ]);
+            ProductSku::where('id', $cart->sku_id)
+                ->decrement('quantity', $cart->quantity);
         }
         $cartData->each->delete();
+
         return $order;
     }
 
     public function internationalCompleted($checkout_id)
     {
 
-        $stripe = $checkout_id;
         $session = session('checkout_data');
         $order = $this->processOrder($session);
+        $charge_id = StripeService::getChargeId($checkout_id);
         PaymentHistory::create([
-            'payment_id' => $stripe,
+            'payment_id' => $charge_id,
             'order_id' => $order->id
         ]);
         session()->forget('checkout_data');

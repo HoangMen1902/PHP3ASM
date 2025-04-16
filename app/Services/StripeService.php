@@ -3,8 +3,11 @@
 namespace App\Services;
 
 use App\Models\Cart;
+use App\Models\PaymentHistory;
 use Illuminate\Support\Facades\Auth;
 use Stripe\Checkout\Session;
+use Stripe\PaymentIntent;
+use Stripe\Refund;
 use Stripe\Stripe;
 
 class StripeService
@@ -26,6 +29,29 @@ class StripeService
         return $session;
     }
 
+    public static function handleRefund(int $order_id): bool|Refund {
+        $paymentHistory = PaymentHistory::where('payment_histories.order_id', '=', $order_id)
+        ->join('orders', 'orders.id', '=', 'payment_histories.order_id')
+        ->where('orders.status', '=', 3)  
+        ->select('payment_histories.payment_id')  
+        ->first();
+
+        if($paymentHistory) {
+            return Refund::create([
+                'charge' => $paymentHistory->payment_id
+            ]); 
+        } 
+        return false;
+    }
+
+    public static function getChargeId(string $checkoutId): mixed {
+        $session = Session::retrieve($checkoutId);
+        $paymentIntentId = $session->payment_intent;
+
+
+        $findIntent = PaymentIntent::retrieve($paymentIntentId);
+        return $findIntent->latest_charge;
+    }
 
     /**
      * Hàm này sẽ điều chỉnh cấu trúc dữ liệu gửi lên stripe
