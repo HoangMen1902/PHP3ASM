@@ -45,7 +45,7 @@ class StripeService
                         'name' => $item->productSku->product->name,
                         'description' => $item->productSku->sku,
                     ],
-                    'unit_amount' => $item->productSku->price*10,
+                    'unit_amount' => $item->productSku->price*100,
                 ],
                 'quantity' => $item->quantity
             ];
