@@ -14,16 +14,16 @@ class OverviewStatsWidget extends BaseWidget
     protected function getCards(): array
     {
         return [
-            Card::make('Users', User::count())
-                ->description('All registered users')
+            Card::make('Khách hàng', User::count())
+                ->description('Số lượng khách hàng')
                 ->color('primary'),
         
-            Card::make('Products', Product::count())
-                ->description('Total available products')
+            Card::make('Sản phẩm', Product::count())
+                ->description('Số lượng sản phẩm')
                 ->color('success'),
         
-            Card::make('Categories', Category::count())
-                ->description('Product categories')
+            Card::make('Danh mục sản phẩm', Category::count())
+                ->description('Số lượng danh mục sản phẩm')
                 ->color('info'),
         ];
         

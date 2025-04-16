@@ -26,5 +26,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ServiceSeeder::class);
         $this->call(ChairSeeder::class);
         $this->call(OptionValueSeeder::class);
+        $this->call(OrderSeeder::class,);
     }
 }

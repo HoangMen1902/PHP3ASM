@@ -3,6 +3,7 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Widgets\OverviewStatsWidget;
+use App\Filament\Widgets\RevenueByDateRangeWidget;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -40,7 +41,10 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,
-                OverviewStatsWidget::class, 
+                OverviewStatsWidget::class,
+                \App\Filament\Widgets\RevenueChart::class,
+                \App\Filament\Widgets\ProductCategoryChart::class,
+                \App\Filament\Widgets\TopSellingProductsChart::class,
             ])
             ->middleware([
                 EncryptCookies::class,
