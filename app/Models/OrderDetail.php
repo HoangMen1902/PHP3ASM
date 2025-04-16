@@ -15,7 +15,7 @@ class OrderDetail extends Model
         return $this->belongsTo(ProductSku::class);
     }
     public function ProductSku(){
-        return $this->hasOne(ProductSku::class);
+        return $this->hasOne(ProductSku::class, 'id');
     }
 
     public function Order(){

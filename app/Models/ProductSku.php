@@ -20,4 +20,9 @@ class ProductSku extends Model
     public function product() {
         return $this->belongsTo(Product::class);
     }
+
+    public function orderDetail()
+    {
+        return $this->belongsTo(OrderDetail::class, 'sku_id');
+    }
 }
