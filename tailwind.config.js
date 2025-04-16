@@ -10,6 +10,7 @@ export default {
         './vendor/guava/filament-modal-relation-managers/resources/**/*.blade.php',
     ],
 
+    darkMode: 'class', 
     theme: {
         extend: {
             fontFamily: {

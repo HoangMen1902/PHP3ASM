@@ -17,6 +17,8 @@ use App\Http\Controllers\BlogController;
 use App\Livewire\Auth\Login;
 use App\Http\Controllers\ProductController;
 use App\Http\Middleware\Authenticate;
+use App\Livewire\Settings\Address;
+use App\Livewire\Settings\Order;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -50,12 +52,17 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings/profile', Profile::class)->name('settings.profile');
     Route::get('settings/password', Password::class)->name('settings.password');
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
+    Route::get('settings/address', Address::class)->name('settings.address');
+    Route::get('settings/order', Order::class)->name('settings.order');
 });
 
 
 Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
+Route::view('/head', 'dashboard')
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
 
 

@@ -81,7 +81,7 @@
                                 </div>
                                 <div class="header-right-btn f-right d-none d-lg-block ml-30">
                                     <a class="btn header-btn"
-                                        href="{{ Auth::check() ? '/profile' : '/login' }}">{{ Auth::check() ? 'Profile' : 'Login' }}</a>
+                                        href="{{ Auth::check() ? '/settings/profile' : '/login' }}">{{ Auth::check() ? 'Profile' : 'Login' }}</a>
                                 </div>
                                 @if(Auth::check()):
                                     <a class="btn header-btn" href="{{ route('logout') }}"

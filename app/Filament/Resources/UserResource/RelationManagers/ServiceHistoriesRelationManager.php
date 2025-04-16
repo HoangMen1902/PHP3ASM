@@ -7,7 +7,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Form;
-
+use Filament\Tables\Columns\ToggleColumn;
 class ServiceHistoriesRelationManager extends RelationManager
 {
     protected static string $relationship = 'serviceHistories';
@@ -44,19 +44,22 @@ class ServiceHistoriesRelationManager extends RelationManager
                     ->formatStateUsing(fn($state) => '$' . number_format($state, 2)),
 
 
-                TextColumn::make('status')
+                    ToggleColumn::make('status')
                     ->label('Trạng thái')
-                    ->formatStateUsing(fn($state) => match ($state) {
-                        1 => 'Hoàn tất',
-                        2 => 'Hủy',
-                        default => 'Không rõ'
-                    }),
+                    ->onIcon('heroicon-o-check-circle')
+                    ->offIcon('heroicon-o-x-circle')
+                    ->onColor('success')
+                    ->offColor('danger')
+                    ->getStateUsing(fn($record) => $record->status == 1)
+                    ->updateStateUsing(function ($record, $state) {
+                        $record->status = $state ? 1 : 2;
+                        $record->save();
+                    })
+
             ])
             ->filters([])
             ->headerActions([])
-            ->actions([
-                Tables\Actions\ViewAction::make(),
-            ])
+            ->actions([])
             ->bulkActions([]);
     }
 }
