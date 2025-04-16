@@ -4,6 +4,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Middleware\CartMiddleware;
 use App\Http\Middleware\CheckoutMiddleware;
+use App\Http\Controllers\AppointmentController;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
@@ -20,7 +21,7 @@ use App\Http\Middleware\Authenticate;
 use App\Livewire\Settings\Address;
 use App\Livewire\Settings\Order;
 use Illuminate\Support\Facades\Route;
-
+    use App\Livewire\Components\AppointmentForm;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/blog', [BlogController::class, 'index']);
 Route::get('/blog-detail', [BlogController::class, 'singlePost']);
@@ -39,13 +40,16 @@ Route::get('/international-cancel', [CheckoutController::class, 'internationalCa
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->middleware('auth')
     ->name('logout');
-
+Route::get('/booking', [AppointmentController::class, 'index']);
+    
 Route::get('/service', [ServiceController::class, 'index']);
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('login');
-
+Route::view('dashboard', 'dashboard')
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
 
