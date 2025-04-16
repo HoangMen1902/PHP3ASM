@@ -31,7 +31,8 @@ class Checkout extends Component
     public function updateAddress($id)
     {
         if (!is_int($id) && !is_numeric($id)) {
-            Log::error((gettype($id)));
+            $this->dispatch('contentUpdated');
+
             return;
         }
         $queryAddress = CheckoutAddress::find($id);
@@ -42,6 +43,7 @@ class Checkout extends Component
             $this->province_name = $queryAddress->province_name;
             $this->district_name = $queryAddress->district_name;
             $this->ward_name = $queryAddress->ward_name;
+            $this->dispatch('contentUpdated');
         } else {
             abort(403);
         }

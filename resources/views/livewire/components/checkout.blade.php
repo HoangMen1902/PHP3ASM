@@ -1,9 +1,8 @@
 @push('styles')
     <style>
-input:read-only:not(:placeholder-shown) + .placeholder {
-    display: none;
-}
-
+        input:read-only:not(:placeholder-shown)+.placeholder {
+            display: none;
+        }
     </style>
 @endpush
 <div>
@@ -36,13 +35,13 @@ input:read-only:not(:placeholder-shown) + .placeholder {
 
                     <a href="" style="color: #0000EE">Bạn chưa có địa chỉ giao hàng, vui lòng tạo tại đây!</a>
                 @else
-                    <select name="checkout_address" id="checkout_address">
-                        <option value="none">Chọn thông tin giao hàng</option>
-                        @foreach ($user->checkoutAddresses as $user_address)
-                            <option value="{{$user_address->id}}">{{ $user_address->address }}</option>
-                        @endforeach
-                    </select>
-                    <a href="" style="color: #0000EE">Địa chỉ bị sai? sửa tại đây.</a>
+                        <select name="checkout_address" id="checkout_address" form="checkout">
+                            <option>Chọn thông tin giao hàng</option>
+                            @foreach ($user->checkoutAddresses as $user_address)
+                                <option value="{{$user_address->id}}">{{ $user_address->address }}</option>
+                            @endforeach
+                        </select>
+                        <a href="" style="color: #0000EE">Địa chỉ bị sai? sửa tại đây.</a>
                 @endif
             </div>
             <div class="billing_details">
@@ -55,27 +54,27 @@ input:read-only:not(:placeholder-shown) + .placeholder {
 
                             <div class="col-md-12 form-group p_star">
                                 <input type="text" class="form-control" id="username" name="username" readonly
-                                    wire:model="address_username" placeholder="Address Username"/>
+                                    wire:model="address_username" placeholder="Address Username" />
                             </div>
                             <div class="col-md-6 form-group p_star">
                                 <input type="text" class="form-control" id="phone" name="phone" readonly
-                                    wire:model="phone" placeholder="Phone Number"/>
+                                    wire:model="phone" placeholder="Phone Number" />
                             </div>
                             <div class="col-md-6 form-group">
                                 <input type="text" class="form-control" id="province_name" name="province_name"
-                                    placeholder="Province Name" readonly wire:model="province_name"/>
+                                    placeholder="Province Name" readonly wire:model="province_name" />
                             </div>
                             <div class="col-md-6 form-group p_star">
                                 <input type="text" class="form-control" id="district_name" name="district_name" readonly
-                                    wire:model="district_name" placeholder="District Name"/>
+                                    wire:model="district_name" placeholder="District Name" />
                             </div>
                             <div class="col-md-6 form-group p_star">
                                 <input type="text" class="form-control" id="ward_name" name="ward_name" readonly
-                                    wire:model="ward_name" placeholder="Ward Name"/>
+                                    wire:model="ward_name" placeholder="Ward Name" />
                             </div>
                             <div class="col-md-12 form-group p_star">
                                 <input type="text" class="form-control" id="Address" name="Address" readonly
-                                    wire:model="address" placeholder="Address"/>
+                                    wire:model="address" placeholder="Address" />
                             </div>
 
 
@@ -124,7 +123,7 @@ input:read-only:not(:placeholder-shown) + .placeholder {
                                 </ul>
                                 <div class="payment_item">
                                     <div class="radion_btn">
-                                        <input type="radio" id="f-option5" name="payment-method" form="checkout" />
+                                        <input type="radio" id="f-option5" name="payment-method" form="checkout" value="cash"/>
                                         <label for="f-option5">Cash</label>
                                         <div class="check"></div>
                                     </div>
@@ -134,7 +133,7 @@ input:read-only:not(:placeholder-shown) + .placeholder {
                                 </div>
                                 <div class="payment_item active">
                                     <div class="radion_btn">
-                                        <input type="radio" id="f-option6" name="payment-method" form="checkout" />
+                                        <input type="radio" id="f-option6" name="payment-method" form="checkout" value="international"/>
                                         <label for="f-option6">International Payment</label>
                                         <img src="img/product/single-product/card.jpg" alt="" />
                                         <div class="check"></div>
@@ -162,8 +161,13 @@ input:read-only:not(:placeholder-shown) + .placeholder {
         $('#checkout_address').on('change', function () {
             let selectedValue = $(this).val();
             $wire.dispatch('changedAddress', { id: selectedValue });
-
+        });
+        Livewire.on('contentUpdated', () => {
+            setTimeout(() => {
+            $('select').niceSelect(); 
+            }, 1);
         });
     });
 </script>
+
 @endscript

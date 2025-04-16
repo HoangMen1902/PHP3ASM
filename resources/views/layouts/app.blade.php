@@ -69,6 +69,9 @@
                                             <li><a href="/products">Products</a></li>
                                             <li><a href="/service">Services</a></li>
                                             <li><a href="/contact">Contact</a></li>
+                                            @if(Auth::check())
+                                            <li><a href="/cart">Cart</a></li>
+                                            @endif
                                             <li>
                                             </li>
 

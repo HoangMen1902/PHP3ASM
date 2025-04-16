@@ -30,10 +30,13 @@ Route::get('/products', [ProductController::class, 'index']);
 Route::get('/cart', [CartController::class, 'index']);
 Route::get('/products/{id}', [ProductController::class, 'show']);
 Route::get('/checkout', [CheckoutController::class, 'index'])->middleware([CheckoutMiddleware::class, Authenticate::class]);
+Route::get('/thanks-page', [HomeController::class, 'thanks']);
+Route::get('/international-success/{checkout_id}', [CheckoutController::class, 'internationalCompleted']);
+Route::get('/international-cancel', [CheckoutController::class, 'internationalCancel']);
+
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
-                ->middleware('auth')
-                ->name('logout');
-Route::post('/add-to-cart', [CartController::class, 'cartInsert'])->middleware([Authenticate::class, CartMiddleware::class]);
+    ->middleware('auth')
+    ->name('logout');
 
 Route::get('/service', [ServiceController::class, 'index']);
 
@@ -49,8 +52,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
 });
 
+
 Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 
-require __DIR__.'/auth.php';
+
+
+
+Route::post('/add-to-cart', [CartController::class, 'cartInsert'])->middleware([Authenticate::class, CartMiddleware::class]);
+Route::post('/checkout', [CheckoutController::class, 'checkout'])->middleware('auth');
+require __DIR__ . '/auth.php';
