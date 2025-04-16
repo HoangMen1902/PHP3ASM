@@ -64,19 +64,17 @@
                                 <div class="main-menu f-right d-none d-lg-block">
                                     <nav>
                                         <ul id="navigation">
-                                            <li class="active"><a href="/">Home</a></li>
-                                            <li><a href="/about">About</a></li>
-                                            <li><a href="/products">Products</a></li>
-                                            <li><a href="/service">Services</a></li>
-                                            <li><a href="/contact">Contact</a></li>
+                                            <li class="{{ request()->is('/') ? 'active' : '' }}"><a href="/">Home</a></li>
+                                            <li class="{{ request()->is('about') ? 'active' : '' }}"><a href="/about">About</a></li>
+                                            <li class="{{ request()->is('products') ? 'active' : '' }}"><a href="/products">Products</a></li>
+                                            <li class="{{ request()->is('service') ? 'active' : '' }}"><a href="/service">Services</a></li>
+                                            <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="/contact">Contact</a></li>
+                                            <li class="{{ request()->is('booking') ? 'active' : '' }}"><a href="/booking">Booking</a></li>
                                             @if(Auth::check())
                                             <li><a href="/cart">Cart</a></li>
                                             @endif
-                                            <li>
-                                            </li>
-
-                                            </li>
                                         </ul>
+                                        
                                     </nav>
                                 </div>
                                 <div class="header-right-btn f-right d-none d-lg-block ml-30">
@@ -276,6 +274,7 @@
         };
 
     </script>
+
     @if (session('error'))
         <script>
             toastr.warning("{{ session('error') }}");
