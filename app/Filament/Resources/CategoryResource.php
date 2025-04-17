@@ -22,9 +22,13 @@ class CategoryResource extends Resource
     protected static ?string $model = Category::class;
 
     protected static ?string $label = 'Danh mục';
+    protected static ?int $navigationSort = 6;
 
     protected static ?string $navigationIcon = 'heroicon-o-archive-box';
-
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
     public static function form(Form $form): Form
     {
         return $form

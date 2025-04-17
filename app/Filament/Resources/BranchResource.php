@@ -22,9 +22,13 @@ class BranchResource extends Resource
     protected static ?string $model = Branch::class;
 
     protected static ?string $label = 'Chi Nhánh';
+    protected static ?int $navigationSort = 5;
 
     protected static ?string $navigationIcon = 'heroicon-o-building-office-2';
-
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
     public static function form(Form $form): Form
     {
         return $form

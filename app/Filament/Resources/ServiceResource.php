@@ -22,9 +22,13 @@ class ServiceResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-banknotes';
     protected static ?string $navigationLabel = 'Dịch vụ';
+    protected static ?int $navigationSort = 3;
 
     protected static ?string $label = 'Dịch vụ';
-
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
     public static function form(Form $form): Form
     {
         return $form

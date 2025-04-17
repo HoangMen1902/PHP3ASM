@@ -35,8 +35,12 @@ class AppointmentResource extends Resource
 
     protected static ?string $label = 'Đặt Lịch';
 
+    protected static ?int $navigationSort = 4;
 
-
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
     public static function form(Form $form): Form
     {
         return $form

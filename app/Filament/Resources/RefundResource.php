@@ -32,7 +32,7 @@ class RefundResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $label = 'Yêu cầu hoàn tiền';
-
+    protected static ?int $navigationSort = 11;
     public static function form(Form $form): Form
     {
         return $form
@@ -60,7 +60,10 @@ class RefundResource extends Resource
     {
         return false;
     }
-
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
     public static function table(Table $table): Table
     {
         return $table

@@ -27,7 +27,12 @@ class OrderResource extends Resource
     protected static ?string $label = 'Đơn hàng';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?int $navigationSort = 9;
 
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
     public static function form(Form $form): Form
     {
         return $form
