@@ -38,7 +38,7 @@ class CheckoutController extends Controller
             return redirect()->away($paymentSession->url);
         } elseif ($request->input('payment-method') === 'cash') {
             $this->processOrder($request);
-            return redirect('/thanks-page');
+            return redirect('/profile/order');
         } else {
             return redirect()->back()->with(['error' => 'Phương thức thanh toán không hợp lệ.']);
         }
@@ -95,7 +95,7 @@ class CheckoutController extends Controller
             'order_id' => $order->id
         ]);
         session()->forget('checkout_data');
-        return redirect('/thanks-page');
+        return redirect('/profile/order');
     }
 
     public function internationalCancel()
