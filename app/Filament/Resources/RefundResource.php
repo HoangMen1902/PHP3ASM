@@ -71,8 +71,7 @@ class RefundResource extends Resource
                 TextColumn::make('user.email')->label('Email người dùng'),
                 TextColumn::make('total_price')->label('Giá trị')->money('usd', true),
                 TextColumn::make('created_at')->label('Ngày đặt'),
-
-            ])
+            ])->searchable()
             ->filters([
                 //
             ])
