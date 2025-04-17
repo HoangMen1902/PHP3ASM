@@ -44,7 +44,7 @@ class CheckoutController extends Controller
         }
     }
 
-    public function processOrder($request)
+    public function processOrder($request, $payment_method = 'cash')
     {
         $cartData = Cart::where('user_id', '=', Auth::id())->with('productSku')->get();
         $totalPrice = 0;
@@ -66,7 +66,7 @@ class CheckoutController extends Controller
             'total_price' => $totalPrice,
             'address_username' => $username,
             'address_phone' => $phone,
-            'status' => 1,
+            'status' => $payment_method === 'cash' ? 1 : 2,
 
         ]);
         foreach ($cartData as $cart) {
@@ -88,7 +88,7 @@ class CheckoutController extends Controller
     {
 
         $session = session('checkout_data');
-        $order = $this->processOrder($session);
+        $order = $this->processOrder($session, 'international');
         $charge_id = StripeService::getChargeId($checkout_id);
         PaymentHistory::create([
             'payment_id' => $charge_id,

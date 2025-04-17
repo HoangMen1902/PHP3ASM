@@ -60,10 +60,6 @@ class RefundResource extends Resource
     {
         return false;
     }
-    public static function getNavigationBadge(): ?string
-    {
-        return static::getModel()::count();
-    }
     public static function table(Table $table): Table
     {
         return $table
