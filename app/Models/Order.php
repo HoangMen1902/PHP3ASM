@@ -12,7 +12,8 @@ class Order extends Model
 
     protected $table = 'orders';
 
-    public function orderDetails() {
+    public function orderDetails()
+    {
         return $this->hasMany(OrderDetail::class);
     }
 

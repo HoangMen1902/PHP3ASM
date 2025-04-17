@@ -7,21 +7,18 @@
                 wire:model="current_password"
                 :label="__('Mật khẩu hiện tại')"
                 type="password"
-                required
                 autocomplete="current-password"
             />
             <flux:input
                 wire:model="password"
                 :label="__('Mật khẩu mới')"
                 type="password"
-                required
                 autocomplete="new-password"
             />
             <flux:input
                 wire:model="password_confirmation"
                 :label="__('Xác nhận mật khẩu mới')"
                 type="password"
-                required
                 autocomplete="new-password"
             />
 

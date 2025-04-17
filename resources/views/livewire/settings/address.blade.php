@@ -1,9 +1,9 @@
 <section class="w-full">
     <x-settings.layout :heading="__('Địa chỉ của bạn')" :subheading="__('Cập nhật và quản lý địa chỉ của bạn')">
         <form wire:submit.prevent="saveAddress" class="my-6 w-full space-y-6">
-            <flux:input wire:model="username_address" :label="__('Tên người nhận')" type="text" required autofocus />
+            <flux:input wire:model="username_address" :label="__('Tên người nhận')" type="text" autofocus />
 
-            <flux:input wire:model="phone" :label="__('Số điện thoại')" type="text" required />
+            <flux:input wire:model="phone" :label="__('Số điện thoại')" type="text" />
 
             <div>
                 <label for="province" class="block text-sm font-medium text-gray-700">{{ __('Tỉnh/Thành phố') }}</label>
@@ -31,7 +31,7 @@
 
             <div>
                 <label for="ward" class="block text-sm font-medium text-gray-700">{{ __('Phường/Xã') }}</label>
-                <select wire:model="ward_id"   class="block w-full rounded-md border-gray-300 shadow-sm
+                <select wire:model="ward_id" class="block w-full rounded-md border-gray-300 shadow-sm
            focus:ring-indigo-500 focus:border-indigo-500
            dark:bg-gray-800 dark:border-gray-600 dark:text-white" id="ward">
                     <option value="">{{ __('Chọn phường') }}</option>
@@ -41,7 +41,7 @@
                 </select>
             </div>
 
-            <flux:input wire:model="address" :label="__('Địa chỉ cụ thể')" type="text" required />
+            <flux:input wire:model="address" :label="__('Địa chỉ cụ thể')" type="text" />
 
             <div class="flex items-center gap-4">
                 <div class="flex items-center justify-end">

@@ -11,14 +11,15 @@ class OrderDetail extends Model
 
 
 
-    public function sku() {
-        return $this->belongsTo(ProductSku::class);
-    }
-    public function ProductSku(){
-        return $this->hasOne(ProductSku::class, 'id');
-    }
-
-    public function Order(){
-        return $this->belongsTo(Order::class);
-    }
+       // Lấy thông tin SKU
+       public function sku()
+       {
+           return $this->belongsTo(ProductSku::class, 'sku_id');
+       }
+   
+       // Lấy thông tin đơn hàng
+       public function order()
+       {
+           return $this->belongsTo(Order::class);
+       }
 }

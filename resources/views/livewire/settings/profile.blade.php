@@ -3,12 +3,12 @@
 
     <x-settings.layout :heading="__('Hồ sơ cá nhân')" :subheading="__('Cập nhật thông tin người dùng')">
         <form wire:submit="updateProfileInformation" class="my-6 w-full space-y-6">
-            <flux:input wire:model="name" :label="__('Tên người dùng')" type="text" required autofocus autocomplete="name" />
+            <flux:input wire:model="name" :label="__('Tên người dùng')" type="text"  autofocus autocomplete="name" />
 
-            <flux:input wire:model="phone" :label="__('Số điện thoại')" type="text" required autocomplete="tel" /> <!-- 🆕 -->
+            <flux:input wire:model="phone" :label="__('Số điện thoại')" type="text"  autocomplete="tel" /> <!-- 🆕 -->
 
             <div>
-                <flux:input wire:model="email" :label="__('Email')" type="email" required autocomplete="email" />
+                <flux:input wire:model="email" :label="__('Email')" type="email"  autocomplete="email" />
 
                 @if (auth()->user() instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! auth()->user()->hasVerifiedEmail())
                 <div>

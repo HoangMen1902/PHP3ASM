@@ -34,11 +34,23 @@ class Address extends Component
     {
         $this->validate([
             'username_address' => 'required|string|max:125',
-            'phone' => 'required|string|regex:/^(\d{10})$/',  
+            'phone' => 'required|string|regex:/^(\d{10})$/',
             'address' => 'required|string',
             'province_id' => 'required|integer',
             'district_id' => 'required|integer',
             'ward_id' => 'required|integer',
+        ], [
+            'username_address.required' => 'Vui lòng nhập họ tên người nhận.',
+            'username_address.max' => 'Họ tên không được vượt quá 125 ký tự.',
+            'phone.required' => 'Vui lòng nhập số điện thoại.',
+            'phone.regex' => 'Số điện thoại không hợp lệ. Vui lòng nhập đúng 10 chữ số.',
+            'address.required' => 'Vui lòng nhập địa chỉ.',
+            'province_id.required' => 'Vui lòng chọn tỉnh/thành phố.',
+            'province_id.integer' => 'Tỉnh/thành phố không hợp lệ.',
+            'district_id.required' => 'Vui lòng chọn quận/huyện.',
+            'district_id.integer' => 'Quận/huyện không hợp lệ.',
+            'ward_id.required' => 'Vui lòng chọn phường/xã.',
+            'ward_id.integer' => 'Phường/xã không hợp lệ.',
         ]);
 
         $province = collect($this->provinces)->firstWhere('ProvinceID', $this->province_id);
@@ -66,14 +78,14 @@ class Address extends Component
         session()->flash('message', 'Địa chỉ đã được lưu thành công!');
     }
 
-    public $deleteModalOpen = false; 
+    public $deleteModalOpen = false;
 
     public function confirmDelete($addressId)
     {
         $this->deleteModalOpen = true;
         $this->addressIdToDelete = $addressId;
     }
-    
+
     public function deleteAddress()
     {
         if (isset($this->addressIdToDelete)) {
@@ -86,7 +98,7 @@ class Address extends Component
                 session()->flash('error', 'Không tìm thấy địa chỉ hoặc không có quyền xóa.');
             }
         }
-    
+
         $this->deleteModalOpen = false;
     }
     #[On('updateProvince')]
