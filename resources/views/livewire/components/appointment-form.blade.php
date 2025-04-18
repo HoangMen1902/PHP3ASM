@@ -14,7 +14,7 @@
 <div style="padding: 30px 0" class="container py-6 ">
     <div class="card shadow-sm mx-auto" style="max-width: 600px;">
         <div class="card-body">
-            <h4 class="card-title text-center mb-4">Đặt lịch hẹn</h4>
+            <h4 class="card-title text-center mb-4">Make an appointment</h4>
 
             @if (session()->has('success'))
                 <div class="alert alert-success">
@@ -30,33 +30,33 @@
 
             <form id="appointment-form" wire:submit.prevent="submit">
                 <div class="mb-3">
-                    <label class="form-label">Họ tên</label>
+                    <label class="form-label">Fullname</label>
                     <input type="text" wire:model="customer_name" class="form-control">
                     @error('customer_name') <div class="text-danger small">{{ $message }}</div> @enderror
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Số điện thoại</label>
+                    <label class="form-label">Phone</label>
                     <input type="text" wire:model="customer_phone" class="form-control">
                     @error('customer_phone') <div class="text-danger small">{{ $message }}</div> @enderror
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Ngày</label>
+                    <label class="form-label">Day</label>
                     <input type="date" wire:model="date" class="form-control">
                     @error('date') <div class="text-danger small">{{ $message }}</div> @enderror
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Giờ</label>
+                    <label class="form-label">Time</label>
                     <input type="time" wire:model="time" class="form-control">
                     @error('time') <div class="text-danger small">{{ $message }}</div> @enderror
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Chi nhánh</label>
+                    <label class="form-label">Branch</label>
                     <select wire:model="branch_id" class="form-select" id="brandSelect">
-                        <option value="">-- Chọn chi nhánh --</option>
+                        <option value="">-- Choose branch --</option>
                         @foreach ($branches as $branch)
                             <option value={{ $branch->id }}>{{ $branch->branch_name ?? 'Chi nhánh không xác định' }}
                             </option>
@@ -67,9 +67,9 @@
 
                 @if (!empty($chairs))
                     <div class="mb-3">
-                        <label class="form-label">Ghế</label>
+                        <label class="form-label">Chair</label>
                         <select wire:model="chair_id" class="form-select" id="chairSelect">
-                            <option value="">-- Chọn ghế --</option>
+                            <option value="">-- Choose chair --</option>
                             @foreach ($chairs as $chair)
                                 <option value={{ $chair->id }}>{{ $chair->name ?? 'Ghế không xác định' }}</option>
                             @endforeach
@@ -77,7 +77,6 @@
                         @error('chair_id') <div class="text-danger small">{{ $message }}</div> @enderror
                     </div>
                 @endif
-
                 <button type="submit" class="btn btn-primary my-4 w-100">Đặt lịch</button>
             </form>
         </div>

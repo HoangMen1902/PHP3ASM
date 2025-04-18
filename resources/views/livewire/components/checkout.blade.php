@@ -30,18 +30,18 @@
     <section class="checkout_area padding_top">
         <div class="container">
             <div class="cupon_area" style="display: flex; flex-direction: column;">
-                <label for="checkout_address">Thông tin thanh toán</label>
+                <label for="checkout_address">Checkout Information</label>
                 @if ($user->checkoutAddresses->count() < 1)
 
-                    <a href="" style="color: #0000EE">Bạn chưa có địa chỉ giao hàng, vui lòng tạo tại đây!</a>
+                    <a href="" style="color: #0000EE">You don't have any delivery address, click here to add!</a>
                 @else
                         <select name="checkout_address" id="checkout_address" form="checkout">
-                            <option>Chọn thông tin giao hàng</option>
+                            <option>Choose Delivery Information</option>
                             @foreach ($user->checkoutAddresses as $user_address)
                                 <option value="{{$user_address->id}}">{{ $user_address->address }}</option>
                             @endforeach
                         </select>
-                        <a href="" style="color: #0000EE">Địa chỉ bị sai? sửa tại đây.</a>
+                        <a href="" style="color: #0000EE">Wrong address? Modify it here.</a>
                 @endif
             </div>
             <div class="billing_details">
