@@ -113,35 +113,48 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="single_product_menu d-flex">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="search"
-                                            aria-describedby="inputGroupPrepend">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="inputGroupPrepend"><i
-                                                    class="ti-search"></i></span>
-                                        </div>
-                                    </div>
+                                <div class="single_product_menu d-flex justify-content-center mb-4">
+                                    <form wire:submit.prevent="searchProduct" class="d-flex input-group w-50">
+                                        <input type="text" wire:model.defer="search" class="form-control" placeholder="Nhập tên sản phẩm...">
+                                        <button type="submit" class="btn">Tìm kiếm</button>
+                                    </form>
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
 
                     <div class="row align-items-center latest_product_inner">
-                        @if(isset($data))
-                            @foreach($data as $product)
-                                <div class="col-lg-4 col-sm-6">
-                                    <div class="single_product_item">
-                                        <img src="{{ asset('storage/' .$product->thumbnail) }}" alt="" style="object-fit:cover" onclick="window.location.href = '/products/{{$product->id}}'">
-                                        <div class="single_product_text">
-                                            <h4 onclick="window.location.href = '/products/{{$product->id}}'">{{ $product->name }}</h4>
-                                            <h3> {{ $product->min_price == $product->max_price ? $product->min_price . '$' : $product->min_price . '$ - ' . $product->max_price . '$' }}</h3>
-                                            <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                        </div>
-                                    </div>
+                        
+                        @forelse($data as $product)
+                        <div class="col-lg-4 col-sm-6 mb-4">
+                            <div class="single_product_item">
+                                <img src="{{ asset('storage/' . $product->thumbnail) }}"
+                                     alt="{{ $product->name }}"
+                                     class="w-100"
+                                     style="object-fit:cover; height: 250px; cursor:pointer;"
+                                     onclick="window.location.href = '/products/{{ $product->id }}'">
+                                
+                                <div class="single_product_text">
+                                    <h4 class="cursor-pointer" onclick="window.location.href = '/products/{{ $product->id }}'">
+                                        {{ $product->name }}
+                                    </h4>
+                                    <h3>
+                                        {{ $product->min_price == $product->max_price 
+                                            ? number_format($product->min_price, 0, ',', '.') . '₫' 
+                                            : number_format($product->min_price, 0, ',', '.') . '₫ - ' . number_format($product->max_price, 0, ',', '.') . '₫' }}
+                                    </h3>
+                                    <a href="#" class="add_cart">+ add to cart <i class="ti-heart"></i></a>
                                 </div>
-                            @endforeach
-                        @endif
+                            </div>
+                        </div>
+                    @empty
+                        <div class="col-12">
+                            <p class="text-center text-muted">Không có sản phẩm phù hợp.</p>
+                        </div>
+                    @endforelse
+                    
+
                         <div class="col-lg-12">
                             <div class="pageination">
                                 <nav aria-label="Page navigation example">
