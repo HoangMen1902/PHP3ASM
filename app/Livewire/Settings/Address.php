@@ -75,7 +75,7 @@ class Address extends Component
         // Đặt lại các giá trị form
         $this->reset(['username_address', 'phone', 'address', 'province_id', 'district_id', 'ward_id']);
 
-        session()->flash('message', 'Địa chỉ đã được lưu thành công!');
+        session()->flash('message', 'Success!');
     }
 
     public $deleteModalOpen = false;

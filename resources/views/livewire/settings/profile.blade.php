@@ -1,14 +1,14 @@
-<section class="w-full">
+<section class="w-full px-10">
     @include('partials.settings-heading')
 
-    <x-settings.layout :heading="__('Hồ sơ cá nhân')" :subheading="__('Cập nhật thông tin người dùng')">
+    <x-settings.layout :heading="__('Personal profile')" :subheading="__('Update user information')">
         <form wire:submit="updateProfileInformation" class="my-6 w-full space-y-6">
-            <flux:input wire:model="name" :label="__('Tên người dùng')" type="text"  autofocus autocomplete="name" />
+            <flux:input wire:model="name" :label="__('Username')" type="text"  autofocus autocomplete="name" style="min-width: 800px" />
 
-            <flux:input wire:model="phone" :label="__('Số điện thoại')" type="text"  autocomplete="tel" /> <!-- 🆕 -->
+            <flux:input wire:model="phone" :label="__('Phone')" type="text"  autocomplete="tel" style="min-width: 800px" />
 
             <div>
-                <flux:input wire:model="email" :label="__('Email')" type="email"  autocomplete="email" />
+                <flux:input wire:model="email" :label="__('Email')" type="email"  autocomplete="email" style="min-width: 800px" />
 
                 @if (auth()->user() instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! auth()->user()->hasVerifiedEmail())
                 <div>
@@ -31,11 +31,11 @@
 
             <div class="flex items-center gap-4">
                 <div class="flex items-center justify-end">
-                    <flux:button variant="primary" type="submit" class="w-full">{{ __('Lưu thông tin') }}</flux:button>
+                    <flux:button variant="primary" type="submit" class="w-full">{{ __('Save') }}</flux:button>
                 </div>
 
                 <x-action-message class="me-3" on="profile-updated">
-                    {{ __('Cập nhật thành công.') }}
+                    {{ __('Update success.') }}
                 </x-action-message>
             </div>
         </form>
