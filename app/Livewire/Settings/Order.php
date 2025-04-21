@@ -10,7 +10,9 @@ class Order extends Component
 {
     public $orders;
     public $selectedOrder = null;
-
+    public $showConfirmModal = false;
+    public $confirmAction = null;
+    public $targetOrderId = null;
     public function mount()
     {
         $this->orders = OrderModel::with('orderDetails.sku.product')
@@ -32,15 +34,55 @@ class Order extends Component
     public function getStatusText($status)
     {
         return match ((int) $status) {
-            0 => 'Huỷ',
-            1 => 'Đang xử lý',
-            2 => 'Đã thanh toán',
-            3 => 'Chờ hoàn tiền',
-            4 => 'Đã hoàn tiền',
-            5 => 'Đang vận chuyển',
-            6 => 'Thành công',
+            0 => 'Cancelled',
+            1 => 'Processing',
+            2 => 'Paid',
+            3 => 'Refund Pending',
+            4 => 'Refunded',
+            5 =>  'Shipping',
+            6 => 'Completed',
             default => 'Không xác định',
         };
+    }
+
+
+    public function confirmCancelOrder($orderId)
+    {
+        $this->showConfirmModal = true;
+        $this->confirmAction = 'cancel';
+        $this->targetOrderId = $orderId;
+    }
+
+    public function confirmRefundOrder($orderId)
+    {
+        $this->showConfirmModal = true;
+        $this->confirmAction = 'refund';
+        $this->targetOrderId = $orderId;
+    }
+
+    public function executeConfirmedAction()
+    {
+        if (!$this->targetOrderId || !$this->confirmAction) return;
+
+        $order = $this->orders->firstWhere('id', $this->targetOrderId);
+        if (!$order) return;
+
+        if ($this->confirmAction === 'cancel' && $order->status == 1) {
+            $order->status = 0;
+        } elseif ($this->confirmAction === 'refund' && $order->status == 2) {
+            $order->status = 3;
+        }
+
+        $order->save();
+        $this->orders = $this->orders->fresh();
+        $this->selectedOrder = $this->orders->firstWhere('id', $order->id);
+
+        $this->reset(['showConfirmModal', 'confirmAction', 'targetOrderId']);
+    }
+
+    public function cancelConfirmation()
+    {
+        $this->reset(['showConfirmModal', 'confirmAction', 'targetOrderId']);
     }
 
 

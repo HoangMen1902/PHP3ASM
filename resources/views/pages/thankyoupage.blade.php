@@ -1,0 +1,2 @@
+
+@livewire('components.thankyoupage')
