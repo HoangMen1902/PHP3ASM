@@ -10,4 +10,8 @@ class AppointmentService extends Model
         'service_id',
         'appointment_id'
     ];
+    public function service()
+    {
+        return $this->belongsTo(Service::class);
+    }
 }

@@ -22,6 +22,8 @@ use App\Livewire\Settings\Address;
 use App\Livewire\Settings\Order;
 use Illuminate\Support\Facades\Route;
     use App\Livewire\Components\AppointmentForm;
+use App\Livewire\Settings\Appointment;
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/blog', [BlogController::class, 'index']);
 Route::get('/blog-detail', [BlogController::class, 'singlePost']);
@@ -58,6 +60,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
     Route::get('settings/address', Address::class)->name('settings.address');
     Route::get('settings/order', Order::class)->name('settings.order');
+    Route::get('settings/appointment', Appointment::class)->name('settings.appointment');
 });
 
 
