@@ -115,8 +115,8 @@
                                 </div>
                                 <div class="single_product_menu d-flex justify-content-center mb-4">
                                     <form wire:submit.prevent="searchProduct" class="d-flex input-group w-50">
-                                        <input type="text" wire:model.defer="search" class="form-control" placeholder="Nhập tên sản phẩm...">
-                                        <button type="submit" class="btn">Tìm kiếm</button>
+                                        <input type="text" wire:model.defer="search" class="form-control" placeholder="Enter product name...">
+                                        <button type="submit" class="btn">Search</button>
                                     </form>
                                 </div>
                                 
