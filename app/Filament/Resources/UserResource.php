@@ -107,7 +107,7 @@ class UserResource extends Resource
                         2 => 'Quản trị',
                         default => 'Không xác định'
                     };
-                }),
+                })->searchable(),
             ])
             ->filters([
                 //

@@ -10,8 +10,7 @@ class Service extends Model
     protected $fillable = ['name', 'price', 'status'];
 
     public function appointments()
-{
-    return $this->belongsToMany(Appointment::class, 'appointment_services');
-}
-
+    {
+        return $this->belongsToMany(Appointment::class, 'appointment_services');
+    }
 }
