@@ -27,5 +27,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ChairSeeder::class);
         $this->call(OptionValueSeeder::class);
         $this->call(OrderSeeder::class,);
+        $this->call(SkuSeeder::class,);
+        $this->call(SkuValueSeeder::class,);
     }
 }

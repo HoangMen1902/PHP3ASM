@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\CheckoutAddress;
 use App\Models\Order;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -24,6 +25,8 @@ class OrderFactory extends Factory
             'address' => $this->faker->address, 
             'user_id' => User::factory(), 
             'status' => $this->faker->randomElement([1, 2, 3, 4]), 
+            'address_username' => $this->faker->name(),
+            'address_phone' => $this->faker->phoneNumber()
         ];
     }
 }
